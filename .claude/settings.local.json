@@ -12,7 +12,10 @@
       "Bash(python -m py_compile tests/v1/test_security.py)",
       "Bash(python3 -m py_compile tests/v1/test_security.py)",
       "Bash(python3 -c \"import secrets; print\\(secrets.token_hex\\(32\\)\\)\")",
-      "Bash(python3 -c 'import ast, sys *)"
+      "Bash(python3 -c 'import ast, sys *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
