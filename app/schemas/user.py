@@ -8,7 +8,6 @@ from app.models.user import UserStatus
 class RoleOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
     name: str
     guard_name: str
 
@@ -16,7 +15,6 @@ class RoleOut(BaseModel):
 class UserOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
     uuid: str
     names: str
     last_names: str
