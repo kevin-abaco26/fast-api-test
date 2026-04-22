@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: abaco2-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: abaco2-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ENVIRONMENT
+        value: production
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: SENDGRID_FROM_EMAIL
+        sync: false
+      - key: SUPERUSER_EMAIL
+        sync: false
+      - key: SUPERUSER_PASSWORD
+        generateValue: true
+      - key: SUPERUSER_NAMES
+        value: Admin
+      - key: SUPERUSER_LAST_NAMES
+        value: System
+      - key: FAILED_LOGIN_THRESHOLD
+        value: "5"
+      - key: VERIFICATION_CODE_TTL_MINUTES
+        value: "5"
+      - key: CORS_ORIGINS
+        sync: false
+
+databases:
+  - name: abaco2-db
+    databaseName: abaco2
+    user: abaco
+    plan: free
