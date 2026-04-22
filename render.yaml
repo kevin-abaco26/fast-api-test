@@ -1,8 +1,9 @@
 services:
   - type: web
     name: abaco2-api
-    runtime: docker
-    dockerfilePath: ./Dockerfile
+    runtime: python
+    buildCommand: pip install uv && uv sync --no-dev --frozen
+    startCommand: uv run alembic upgrade head && uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
