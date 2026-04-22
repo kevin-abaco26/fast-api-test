@@ -48,14 +48,14 @@ def upgrade() -> None:
         sa.Column("phone_number", sa.String(50), nullable=True),
         sa.Column(
             "status",
-            sa.Enum("active", "locked", "inactive"),
+            sa.Enum("active", "locked", "inactive", name="userstatus"),
             nullable=False,
             server_default="active",
         ),
         sa.Column("email_verified_at", sa.DateTime(), nullable=True),
         sa.Column("verification_code", sa.String(255), nullable=True),
         sa.Column("verification_expiry", sa.DateTime(), nullable=True),
-        sa.Column("pep", sa.Boolean(), nullable=False, server_default=sa.text("0")),
+        sa.Column("pep", sa.Boolean(), nullable=False, server_default=sa.text("false")),
         sa.Column("country_iso_code", sa.String(10), nullable=True),
         sa.Column("created_at", sa.DateTime(), server_default=sa.func.now(), nullable=False),
         sa.Column("updated_at", sa.DateTime(), server_default=sa.func.now(), nullable=False),
@@ -95,6 +95,7 @@ def downgrade() -> None:
     op.drop_index("ix_users_uuid", "users")
     op.drop_index("ix_users_email", "users")
     op.drop_table("users")
+    sa.Enum(name="userstatus").drop(op.get_bind(), checkfirst=True)
     op.drop_index("ix_permissions_name", "permissions")
     op.drop_table("permissions")
     op.drop_index("ix_roles_name", "roles")
